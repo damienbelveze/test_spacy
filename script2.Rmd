@@ -1,0 +1,20 @@
+---
+title: "utiliser spacy avec un environnement virtuel déjà constitué"
+date: "13 septembre 2025"
+---
+
+```{r}
+library(spacyr)
+library(reticulate)
+Sys.setenv(RETICULATE_PYTHON = "/home/dbelveze/Bureau/spacy/bin/python") # needs to point to python binary
+spacy_initialize()#
+spacy_install()
+txt_files <- list.files(path = "./docs", pattern = "\\.txt$", full.names = TRUE)
+combined_text <- character()
+for (file in txt_files) {
+  file_content <- readLines(file, warn = FALSE)
+  combined_text <- c(combined_text, file_content)
+}
+combined_text <- paste(combined_text, collapse = " ")
+spacy_tokenize(combined_text)
+```
